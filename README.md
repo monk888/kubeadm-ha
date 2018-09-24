@@ -1,8 +1,6 @@
 # kubeadm-highavailiability - 基于kubeadm的kubernetes高可用集群部署，v1.11.3
 
-![k8s logo](images/Kubernetes.png)
 
----
 
 - 该指引适用于v1.11.x版本的kubernetes集群
 
