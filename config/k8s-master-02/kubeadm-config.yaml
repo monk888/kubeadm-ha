@@ -1,0 +1,30 @@
+apiVersion: kubeadm.k8s.io/v1alpha2
+kind: MasterConfiguration
+kubernetesVersion: v1.11.3
+apiServerCertSANs:
+- k8s-master-01
+- k8s-master-02
+- k8s-master-03
+- k8s-master-lb
+- 192.168.200.201
+- 192.168.200.202
+- 192.168.200.203
+- 192.168.200.100
+etcd:
+  local:
+    extraArgs:
+      listen-client-urls: "https://127.0.0.1:2379,https://192.168.200.202:2379"
+      advertise-client-urls: "https://192.168.200.202:2379"
+      listen-peer-urls: "https://192.168.200.202:2380"
+      initial-advertise-peer-urls: "https://192.168.200.202:2380"
+      initial-cluster: "k8s-master-01=https://192.168.200.201:2380,k8s-master-02=https://192.168.200.202:2380"
+      initial-cluster-state: existing
+    serverCertSANs:
+      - k8s-master-02
+      - 192.168.200.202
+    peerCertSANs:
+      - k8s-master-02
+      - 192.168.200.202
+networking:
+  # This CIDR is a calico default. Substitute or remove for your CNI provider.
+  podSubnet: "172.168.0.0/16"
